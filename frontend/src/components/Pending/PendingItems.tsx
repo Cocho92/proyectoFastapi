@@ -29,6 +29,7 @@ const PendingItems = () => (
       ))}
     </Table.Body>
   </Table.Root>
+  
 )
 
 export default PendingItems
