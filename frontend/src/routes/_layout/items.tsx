@@ -26,7 +26,7 @@ const itemsSearchSchema = z.object({
   page: z.number().catch(1),
 })
 
-const PER_PAGE = 5
+const PER_PAGE = 10
 
 function getItemsQueryOptions({ page }: { page: number }) {
   return {
@@ -85,7 +85,7 @@ function ItemsTable() {
       <Table.Root size={{ base: "sm", md: "md" }}>
         <Table.Header>
           <Table.Row>
-            <Table.ColumnHeader w="30%">ID</Table.ColumnHeader>
+            {/* <Table.ColumnHeader w="30%">ID</Table.ColumnHeader> */}
             <Table.ColumnHeader w="30%">Title</Table.ColumnHeader>
             <Table.ColumnHeader w="30%">Description</Table.ColumnHeader>
             <Table.ColumnHeader w="10%">Actions</Table.ColumnHeader>
@@ -94,9 +94,9 @@ function ItemsTable() {
         <Table.Body>
           {items?.map((item) => (
             <Table.Row key={item.id} opacity={isPlaceholderData ? 0.5 : 1}>
-              <Table.Cell truncate maxW="30%">
+              {/* <Table.Cell truncate maxW="30%">
                 {item.id}
-              </Table.Cell>
+              </Table.Cell> */}
               <Table.Cell truncate maxW="30%">
                 {item.title}
               </Table.Cell>

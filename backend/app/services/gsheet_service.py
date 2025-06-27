@@ -112,7 +112,21 @@ class GoogleSheetsService:
             formato_default = {
                 "horizontalAlignment": "CENTER",
                 "verticalAlignment": "MIDDLE",
-                "wrapStrategy": "WRAP"
+                "wrapStrategy": "WRAP",
+                "backgroundColor": {
+                    "red": 1.0,
+                    "green": 1.0,
+                    "blue": 1.0
+                },
+                "textFormat": {
+                    "foregroundColor": {
+                        "red": 0.0,
+                        "green": 0.0,
+                        "blue": 0.0
+                    },
+                    "bold": False,
+                    "italic": False
+                }
             }
             
             # Usar formato personalizado si se proporciona
@@ -125,6 +139,13 @@ class GoogleSheetsService:
             rango_formato = f'A1:{ultima_columna}{num_rows}'
             worksheet.format(rango_formato, formato_final)
             
+            # Pintar columna C de amarillo
+            rango_columna_c = f'C1:C{num_rows}'
+            formato_columna_c = {
+                "backgroundColor": {"red": 1.0, "green": 1.0, "blue": 0.0}  # Amarillo
+            }
+            worksheet.format(rango_columna_c, formato_columna_c)
+
             # Ajustar el ancho de todas las columnas con datos
             if ajustar_columnas and num_columnas > 0:
                 for i in range(1, num_columnas + 1):

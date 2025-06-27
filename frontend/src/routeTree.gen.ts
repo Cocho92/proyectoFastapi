@@ -19,7 +19,9 @@ import { Route as LayoutImport } from './routes/_layout'
 import { Route as LayoutIndexImport } from './routes/_layout/index'
 import { Route as LayoutTasksImport } from './routes/_layout/tasks'
 import { Route as LayoutSettingsImport } from './routes/_layout/settings'
+import { Route as LayoutOpenTabsImport } from './routes/_layout/open-tabs'
 import { Route as LayoutItemsImport } from './routes/_layout/items'
+import { Route as LayoutExcelProcessorImport } from './routes/_layout/excel-processor'
 import { Route as LayoutAdminImport } from './routes/_layout/admin'
 
 // Create/Update Routes
@@ -64,8 +66,18 @@ const LayoutSettingsRoute = LayoutSettingsImport.update({
   getParentRoute: () => LayoutRoute,
 } as any)
 
+const LayoutOpenTabsRoute = LayoutOpenTabsImport.update({
+  path: '/open-tabs',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
 const LayoutItemsRoute = LayoutItemsImport.update({
   path: '/items',
+  getParentRoute: () => LayoutRoute,
+} as any)
+
+const LayoutExcelProcessorRoute = LayoutExcelProcessorImport.update({
+  path: '/excel-processor',
   getParentRoute: () => LayoutRoute,
 } as any)
 
@@ -102,8 +114,16 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutAdminImport
       parentRoute: typeof LayoutImport
     }
+    '/_layout/excel-processor': {
+      preLoaderRoute: typeof LayoutExcelProcessorImport
+      parentRoute: typeof LayoutImport
+    }
     '/_layout/items': {
       preLoaderRoute: typeof LayoutItemsImport
+      parentRoute: typeof LayoutImport
+    }
+    '/_layout/open-tabs': {
+      preLoaderRoute: typeof LayoutOpenTabsImport
       parentRoute: typeof LayoutImport
     }
     '/_layout/settings': {
@@ -126,7 +146,9 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren([
   LayoutRoute.addChildren([
     LayoutAdminRoute,
+    LayoutExcelProcessorRoute,
     LayoutItemsRoute,
+    LayoutOpenTabsRoute,
     LayoutSettingsRoute,
     LayoutTasksRoute,
     LayoutIndexRoute,
