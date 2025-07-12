@@ -1,12 +1,8 @@
-import uuid
-from typing import Any
 import logging
 from fastapi import APIRouter, HTTPException,BackgroundTasks,UploadFile, File
 from fastapi.responses import JSONResponse
-from sqlmodel import func, select
 
-from app.api.deps import CurrentUser, SessionDep
-from app.models import Item, ItemCreate, ItemPublic, ItemsPublic, ItemUpdate, Message,ExcelProcessResponse
+from app.api.deps import CurrentUser
 from app.models import ExcelProcessResponse
 from app.utiles.regex_patterns import PATRONES_DEFAULT
 from app.services.excel_processor import ExcelProcessorService
@@ -22,6 +18,7 @@ router = APIRouter(prefix="/errores_pami", tags=["errores_pami"])
     summary="Procesar archivo Excel y actualizar Google Sheets",
     description="Sube un archivo Excel, procesa su contenido y actualiza un Google Sheet con los resultados."
 )
+#El siguiente metodo podria usar en vez de spreadsheet_key,coulmn_a_procesar y aplicar_patrones_default un objeto de tipo ExcelProcessRequest definido en models.py
 async def procesar_excel(
     current_user: CurrentUser,
     background_tasks: BackgroundTasks,
@@ -45,7 +42,9 @@ async def procesar_excel(
         patrones = PATRONES_DEFAULT if aplicar_patrones_default else []
         
         # Procesador de Excel
-        excel_processor = ExcelProcessorService()
+        excel_processor = ExcelProcessorService() #no hace falta inicializarlo si es un servicio estático 
+
+
         
         # Procesar el archivo (en segundo plano)
         background_tasks.add_task(
