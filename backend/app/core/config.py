@@ -41,6 +41,18 @@ class Settings(BaseSettings):
     # Configuración de Google Sheets
     GOOGLE_SHEETS_CREDENTIALS_FILE: str = "credentials/errorespami-99a3d9c2ea66.json"
 
+    # Configuración de PAMI
+    PAMI_BASE_URL: str = "https://maranon.markey.com.ar/Markey/PacienteAutorizaciones/Index/"
+    PAMI_LOGIN_USER: str = "36132080"
+    PAMI_LOGIN_PASSWORD: str = "220192"
+    PAMI_DEPOT_CODE: int = 1
+    PAMI_LOCATION_CODE: int = 1
+    PAMI_SEARCH_TEXT: str = "PAMI - PAMI"
+    PAMI_LOGIN_FORM_SELECTOR: str = "section#loginForm"
+    PAMI_HEADLESS: bool = True
+    PAMI_BATCH_SIZE: int = 10
+    PAMI_DELAY_SECONDS: int = 1
+
     BACKEND_CORS_ORIGINS: Annotated[
         list[AnyUrl] | str, BeforeValidator(parse_cors)
     ] = []

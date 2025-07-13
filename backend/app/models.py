@@ -184,3 +184,46 @@ class TaskPublic(TaskBase):
 class TasksPublic(SQLModel):  
     data: list[TaskPublic]  
     count: int
+
+
+# Modelos para PAMI Verification
+class PAMIVerificationRequest(SQLModel):
+    """Esquema de solicitud para verificación de URLs PAMI"""
+    columna_urls: str = Field(default="Id", description="Nombre de la columna que contiene las URLs/IDs")
+    columnas_adicionales: list[str] = Field(
+        default=["Paciente", "Fecha", "F. Alta", "Observacion", "Diagnostico", "Motivo"],
+        description="Columnas adicionales a incluir en el resultado"
+    )
+    batch_size: int = Field(default=10, description="Tamaño del bloque de pestañas a procesar")
+    delay_seconds: int = Field(default=1, description="Tiempo de espera en segundos entre bloques")
+
+
+class PAMIURLData(SQLModel):
+    """Datos de una URL verificada"""
+    url_id: str
+    url_completa: str
+    paciente: str
+    fecha: str
+    f_alta: str
+    observacion: str
+    diagnostico: str
+    motivo: str
+    coincide: bool
+
+
+class PAMIVerificationStats(SQLModel):
+    """Estadísticas del procesamiento PAMI"""
+    total_urls: int
+    urls_coincidentes: int
+    urls_no_coincidentes: int
+    urls_con_error: int
+
+
+class PAMIVerificationResponse(SQLModel):
+    """Respuesta de la verificación PAMI"""
+    mensaje: str
+    estadisticas: PAMIVerificationStats
+    archivo_excel_base64: str = Field(description="Archivo Excel codificado en base64")
+    archivo_html_base64: str = Field(description="Archivo HTML codificado en base64")
+    nombre_archivo_excel: str
+    nombre_archivo_html: str
