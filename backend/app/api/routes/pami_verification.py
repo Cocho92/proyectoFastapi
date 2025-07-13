@@ -94,8 +94,7 @@ async def health_check():
         
         # Intentar obtener versión de manera segura
         try:
-            import playwright._impl._version
-            version = playwright._impl._version.__version__
+            version = playwright.__version__
         except:
             version = "unknown"
         
